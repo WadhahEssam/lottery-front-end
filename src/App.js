@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import web3 from './web3';
 import lottery from './lottery';
+import axios from 'axios';
+import querystring from 'querystring';
 
 class App extends Component {
 
@@ -20,6 +22,11 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    axios.post('https://student-housing-backend-wadahesam.c9users.io/api/login', querystring.stringify({email: '435108270@student.ksu.edu.sa', password: '112233'}) )
+    .then(response => {
+      console.log(response.data);
+    })
+
     const managerAddress = await lottery.methods.manager().call();
     const numberOfPlayers = await lottery.methods.getNumberOfPlayers().call();
     const players = await lottery.methods.getPlayers().call();
